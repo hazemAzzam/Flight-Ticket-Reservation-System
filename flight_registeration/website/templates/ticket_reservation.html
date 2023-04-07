@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>Make a Reservation</h1>
+    <form action="" method="post">
+      {% csrf_token %}
+      <label for="flight">Select a Flight:</label>
+      <select name="flight" id="flight">
+        {% for flight in flights %}
+        <option value="{{ flight.id }}">{{ flight.departure_airport }} to {{ flight.arrival_airport }} - {{ flight.departure_time|date:"F j, Y H:i" }}</option>
+        {% endfor %}
+      </select>
+      <br>
+
+      <label for="passenger">Passenger Name:</label>
+      <input type="text" id="passenger" name="passenger" required>
+      <br>
+
+      <label for="seat">Seat Number:</label>
+      <input type="text" id="seat" name="seat">
+      <br>
+
+      <label for="date">Reservation Date:</label>
+      <input type="datetime-local" id="date" name="date" required>
+      <br>
+
+      <input type="submit" value="Reserve">
+    </form>
+  </div>
+{% endblock content %}
+

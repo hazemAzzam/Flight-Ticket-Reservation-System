@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <h1>Flight Reservation System</h1>
+  <form action="." method="POST">
+    {% csrf_token %}
+    {{ searchFlightForm.as_p }} 
+    <br>
+    <input type="submit" value="View Flights">
+  </form>
+  <br>
+  <table>
+    <caption>Available Flights</caption>
+    <thead>
+      <tr>
+        <th>Flight Number</th>
+        <th>Departure Airport</th>
+        <th>Arrival Airport</th>
+        <th>Departure Time</th>
+        <th>Arrival Time</th>
+        <th>Airline</th>
+        <th>Price</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for flight in flights %}
+      <tr>
+        <td>{{ flight.flight_number }}</td>
+        <td>{{ flight.departure_airport }}</td>
+        <td>{{ flight.arrival_airport }}</td>
+        <td>{{ flight.departure_time }}</td>
+        <td>{{ flight.arrival_time }}</td>
+        <td>{{ flight.airline_id }}</td>
+        <td>${{ flight.ticket_price }}</td>
+        <td>
+          <form action="./{{ flight.id }}/reserve/" method="POST">
+            {% csrf_token %}
+            <button>Reserve</button>
+          </form>
+        </td>
+      </tr>
+      {% empty %}
+        <tr>
+            <td colspan="7">No Flights Available</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock content %}
