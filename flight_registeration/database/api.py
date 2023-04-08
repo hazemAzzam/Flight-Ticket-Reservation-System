@@ -1,6 +1,7 @@
 from rest_framework import viewsets
 from .serializers import *
 from .models import *
+from .filters import *
 
 class AirlineAPI(viewsets.ModelViewSet):
     queryset = Airline.objects.all()
@@ -13,6 +14,7 @@ class AirportAPI(viewsets.ModelViewSet):
 class FlightAPI(viewsets.ModelViewSet):
     queryset = Flight.objects.all()
     serializer_class = FlightSerializer
+    filterset_class = FlightFilter
 
 class PassengerAPI(viewsets.ModelViewSet):
     queryset = Passenger.objects.all()
